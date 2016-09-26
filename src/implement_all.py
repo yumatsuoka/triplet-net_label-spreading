@@ -16,8 +16,9 @@ import os
 
 gpu=-1
 od = 2
-n_train=1000
 epoch=40
+n_train=1000
+batchsize=100
 
 itr = 1
 
@@ -25,6 +26,6 @@ for i in range(itr):
     d_name = "mnist_n:"+str(n_train)+"_od:"+str(od)+"_itr:0"+str(i)
     os.system( "echo {}".format(d_name) )
     # train siamese net and get feature vector
-    os.system( "python train_triplet.py --epoch {} --outputdim {} --gpu {} --n_train {} --d_name {}".format(epoch, od, gpu, n_train, d_name) ) 
+    os.system( "python train_triplet.py --epoch {} --outputdim {} --gpu {} --n_train {} --d_name {} --batchsize".format(epoch, od, gpu, n_train, d_name, batchsize)) 
     #implement label-spreading
     os.system( "python a_ls.py --d_name {}".format(d_name))
