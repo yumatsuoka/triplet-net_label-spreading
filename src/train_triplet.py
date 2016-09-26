@@ -12,7 +12,9 @@ from __future__ import print_function
 import six
 import time
 import argparse
-from tqdm import tqdm
+# from tqdm import tqdm
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_mldata
 import numpy as np
@@ -115,11 +117,11 @@ if __name__ == '__main__':
     s_time = time.time()
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', default=-1, type=int)
-    parser.add_argument('--epoch', default=300, type=int)
-    parser.add_argument('--batchsize', default=20, type=int)
+    parser.add_argument('--epoch', default=40, type=int)
+    parser.add_argument('--batchsize', default=100, type=int)
     parser.add_argument('--initmodel', default=0, type=int)
     parser.add_argument('--resume', default=0, type=int)
-    parser.add_argument('--outputdim', default=100, type=int)
+    parser.add_argument('--outputdim', default=2, type=int)
     parser.add_argument('--n_train', default=1000, type=int)
     parser.add_argument('--plot_dim', default=100, type=int)
     parser.add_argument('--d_name', default='hoge', type=str)
@@ -140,7 +142,7 @@ if __name__ == '__main__':
     ld_dict, unld_dict = get_mnist(args.n_train)
 
     print('Setup optimizer')
-    optimizer = optimizers.Adam(alpha=0.00015)
+    optimizer = optimizers.Adam(alpha=0.0002)
     optimizer.setup(model)
     optimizer.add_hook(chainer.optimizer.WeightDecay(0.00001))
 
